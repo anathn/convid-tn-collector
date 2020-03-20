@@ -11,8 +11,9 @@ for line in body:
         county = cell[0][cell[0].find("<p>")+3:cell[0].find("</p>")]
         num = cell[1][cell[1].find("<p>")+3:cell[1].find("</p>")]
         total += int(num)
-        output = f"\"{datetime.now()}\", \"{county}\", {num}\r\n"
+        output = f"\"{datetime.now()}\", \"{county}\", {num}"
+        print(output)
         with open('convid_tn.csv', "a") as f:
-            f.write(output)
+            f.write(output + "\r\n")
 
 print(total)
