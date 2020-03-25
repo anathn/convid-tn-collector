@@ -2,18 +2,23 @@ import requests
 from datetime import datetime
 
 r = requests.get("https://www.tn.gov/health/cedep/ncov.html")
-body = r.text.split("<tr>")
+body = r.text[r.text.find('<div class="tn-simpletable parbase"><table width="0" cellspacing="0" cellpadding="0" border="1">'):]
+body = body[body.find("<tbody"):body.find("</tbody")]
+body = body.split("<tr")
 total = 0
-for line in body:
-    row = line[:line.find("</tr>")]
-    if "bottom" in row:
-        cell = row.split("</td>")
-        county = cell[0][cell[0].find("<p>")+3:cell[0].find("</p>")]
-        num = cell[1][cell[1].find("<p>")+3:cell[1].find("</p>")]
-        total += int(num)
-        output = f"\"{datetime.now()}\", \"{county}\", {num}"
-        print(output)
-        with open('convid_tn.csv', "a") as f:
-            f.write(output + "\r\n")
+f = open('convid_tn.csv', "a")
 
+for line in body:
+    if "<th>" in line or "<tbody>" in line:
+        continue
+    cell = line.split("<td")
+    county = cell[1][cell[1].find("<p>")+3:cell[1].find("</p>")]
+    num = cell[2][cell[2].find("<p>")+3:cell[2].find("</p>")]
+    timestampStr = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
+    total += int(num)
+    output = f"\"{datetime.now()}\", \"{county}\", {num}\r\n"
+    print(output)
+    f.write(output)
+    
 print(total)
+f.close()
