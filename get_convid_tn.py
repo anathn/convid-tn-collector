@@ -2,8 +2,7 @@ import requests
 from datetime import datetime
 
 r = requests.get("https://www.tn.gov/health/cedep/ncov.html")
-body = r.text[r.text.find('<div class="tn-simpletable parbase"><table width="0" cellspacing="0" cellpadding="0" border="1">'):]
-body = body[body.find("<tbody"):body.find("</tbody")]
+body = r.text[r.text.find('<p>County</p>'):]
 body = body.split("<tr")
 total = 0
 f = open('convid_tn.csv', "a")
@@ -22,3 +21,5 @@ for line in body:
     
 print(total)
 f.close()
+
+
