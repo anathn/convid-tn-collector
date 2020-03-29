@@ -2,8 +2,13 @@ import requests
 from datetime import datetime
 
 r = requests.get("https://www.tn.gov/health/cedep/ncov.html")
-body = r.text[r.text.find('<b>County</b>'):]
 
+marker = '<b>County</b>'
+
+if marker not in r.text:
+    marker = '<p>County</p>'
+
+body = r.text[r.text.find(marker):]
 body = body.split("<tr")
 total = 0
 f = open('convid_tn.csv', "a")
