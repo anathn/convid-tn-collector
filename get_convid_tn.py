@@ -3,7 +3,7 @@ from datetime import datetime
 
 r = requests.get("https://www.tn.gov/health/cedep/ncov.html")
 
-marker = '<b>County</b>'
+marker = '<p>Patient county name</p>'
 
 if marker not in r.text:
     marker = '<p>County</p>'
