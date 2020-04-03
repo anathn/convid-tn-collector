@@ -7,6 +7,8 @@ marker = '<p>Patient county name</p>'
 
 if marker not in r.text:
     marker = '<p>County</p>'
+    if marker not in r.text:
+        marker = "<b>County</b>"
 
 body = r.text[r.text.find(marker):]
 body = body.split("<tr")
