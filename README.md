@@ -4,7 +4,7 @@ Collects CONVID-19 Data from tn.gov and saves it to csv
 ## This was quick and dirty - just to capture some stats.  
 I know it is brittle and hardcoded but it works (right now).  
 Why not switch to using a proper html processor? Because we are under lockdown and this is more fun. 
-Fun like trying wo win a StarCraft ][ by only using marines.
+Fun like trying to win a StarCraft ][ by only using marines.
 
 ### To Run ###
 
