@@ -9,6 +9,8 @@ if marker not in r.text:
     marker = '<p>County</p>'
     if marker not in r.text:
         marker = "<b>County</b>"
+        if marker not in r.text:
+            marker = "positives"
 
 body = r.text[r.text.find(marker):]
 body = body.split("<tr")
@@ -25,6 +27,9 @@ for line in body:
     num = cell[2][cell[2].find("<p>")+3:cell[2].find("</p>")]
     timestampStr = datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)")
     try:
+        num = num.replace("<b>", "")
+        num = num.replace("</b>", "")
+
         total += int(num)
     except:
         # We just display this - who cares if it fails
